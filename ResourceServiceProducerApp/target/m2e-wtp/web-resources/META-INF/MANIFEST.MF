@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Vendor: Pivotal Software, Inc.
+Implementation-Title: ResourceServiceApp
+Implementation-Version: 0.0.1-SNAPSHOT
+Implementation-Vendor-Id: ResourceServiceApp
+Build-Jdk: 1.7.0_55
+Built-By: kravikanth
+Created-By: Maven Integration for Eclipse
+Main-Class: demo.ResourceServiceAppApplication
+
