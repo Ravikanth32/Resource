@@ -7,11 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-Welcome 
-
-<a href="searchForm">Search</a>
-<a href="uploadFile">UploadFile</a>
-
-
+<form action="search">
+<input type="text" name="search"/>
+<input type="submit" value="search">
+</form>
 </body>
 </html>

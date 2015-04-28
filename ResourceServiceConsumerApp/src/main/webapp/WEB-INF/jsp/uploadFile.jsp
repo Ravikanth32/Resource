@@ -7,11 +7,13 @@
 <title>Insert title here</title>
 </head>
 <body>
-Welcome 
+<form action="callingProducer" >
+<input type="text" name="uri"><br/>
+<input type="text" name="fileName"><br/>
+<input type="text" name="fileType"><br/>
+<input type="submit" value="upload"/>
 
-<a href="searchForm">Search</a>
-<a href="uploadFile">UploadFile</a>
 
-
+</form>
 </body>
 </html>
