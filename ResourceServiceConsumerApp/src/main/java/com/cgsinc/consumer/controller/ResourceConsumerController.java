@@ -2,10 +2,13 @@ package com.cgsinc.consumer.controller;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.security.Principal;
+import java.io.OutputStream;
+import java.net.URI;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Set;
@@ -16,19 +19,17 @@ import java.util.Set;
 
 
 
+import java.util.UUID;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
-import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.access.prepost.PostAuthorize;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
@@ -49,36 +50,33 @@ import com.cgsinc.consumer.model.Resource;
 public class ResourceConsumerController {
 	
 		
-	@RequestMapping(value="/loginpage")
-	
+	@RequestMapping(value="/loginpage", method = RequestMethod.GET)
 	public String  login(HttpServletRequest request){
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	      String name = auth.getName();
+	     System.out.println( request.getParameter("j_username"));
+	      System.out.println("*******************"+name);
 		return "login";
 	}
 	
-	
-	@RequestMapping("/searchForm")
-	public String searchForm(){
-		return "searchForm";
-	}
-	@RequestMapping("/uploadFile")
-	public String uploadFile(){
-		return "uploadFile";
-	}
-	@PreAuthorize("hasAuthority('admin')")
+			
 	@RequestMapping(value="/homepage" , method = RequestMethod.GET)
-	public String home(Principal p){
-		System.out.println(p.getName());
-		
-		return "home";
+	public ModelAndView home(){
+		ModelAndView model = new ModelAndView();
+		model.addObject("title", "Spring Security Custom Login Form");
+		model.addObject("message", "This is welcome page!");
+		model.setViewName("home");
+		return model;
 	}
 	
 	@RequestMapping("/callingProducer")
 	@ResponseBody
-	public String callingProducer(@RequestParam("uri") String uri,@RequestParam("fileName")String fileName,@RequestParam("fileType")String fileType){
-		System.out.println(uri);
-		/*String uri = "E://files1";
+	public String callingProducer(){
+		
+		String uri = "E://files1";
 		String fileName="sample2";
-		String fileType="txt";*/
+		String fileType="txt";
 		String path="http://localhost:2017/ResourceProducerServiceApp/upload?uri="+uri+"&fileName="+fileName+"&fileType="+fileType;
 		RestTemplate template=new RestTemplate();
 		String message = template.getForObject(path, String.class);
@@ -88,12 +86,12 @@ public class ResourceConsumerController {
 		
 	}
 	
-	@RequestMapping("/search")	
-	public ModelAndView search(@RequestParam("search") String content,Model model){
-	System.out.println(content);
+	@RequestMapping("/search/{content}")	
+	public ModelAndView search(@PathVariable("content") String content,Model model){
+	
 		//String content = "ravi";
 		String path="http://localhost:2017/ResourceProducerServiceApp/search/"+content;
-		System.out.println("*******************");
+		System.out.println(path);
 		RestTemplate template=new RestTemplate();
 		Resource object=null;
 		List<Resource> list=new ArrayList<Resource>();

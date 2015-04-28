@@ -3,8 +3,8 @@ Implementation-Vendor: Pivotal Software, Inc.
 Implementation-Title: ResourceServiceAppConsumer
 Implementation-Version: 0.0.1-SNAPSHOT
 Implementation-Vendor-Id: ResourceServiceAppConsumer
-Build-Jdk: 1.7.0_21
-Built-By: KING
+Build-Jdk: 1.7.0_55
+Built-By: kravikanth
 Created-By: Maven Integration for Eclipse
 Main-Class: demo.ResourceServiceAppConsumerApplication
 

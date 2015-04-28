@@ -7,11 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-Welcome 
-
-<a href="searchForm">Search</a>
-<a href="uploadFile">UploadFile</a>
-
-
+I am for user
 </body>
 </html>
